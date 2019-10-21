@@ -32,7 +32,7 @@ public function sock_get(byref signature as string) as byte
 		sock_init_flag=SOCK_INIT_SIGNATURE
 	end if
 	
-	for f=0 to SOCK_MAX_SOCKETS-1
+	for f=1 to SOCK_MAX_SOCKETS-1
 		if sock_in_use(f)=NO then
 			sock_in_use(f)=YES
 			sock_user_signature(f)=signature
