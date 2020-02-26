@@ -862,7 +862,11 @@ end sub
 
 '------------------------------------------------------------------------------
 public sub agg_keep_alive()
-	sock.num=agg_sock
+	
+	if agg_connected = NO then exit sub
+	if agg_sock = 255 then exit sub
+	
+	sock.num = agg_sock
 	if sock.statesimple<>PL_SSTS_EST then exit sub
 	if agg_keepalive_timer=0 then	
 		sock.setdata("*")
@@ -915,7 +919,11 @@ public sub agg_event_timeout()
 	dim num_of_field as byte
 	dim fld_temp as tbl_field_type
 	dim event_level as string(3)
+
+	if agg_init_flag<>AGG_INIT_SIGNATURE then exit sub
 	
+	if agg_connected=NO then exit sub
+
 	'---------- look for events ------------
 	for i = 0 to AGG_MAX_NUM_STORED_EVENTS - 1
 		'Find ID in agg_stored_event_send
